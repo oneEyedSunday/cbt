@@ -1,0 +1,31 @@
+{
+  "name": "cbt_app",
+  "version": "1.0.0",
+  "description": "Simulating a CBT, potentially extendable to a full student portal",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/oneEyedSunday/cbt.git"
+  },
+  "keywords": [
+    "Angular",
+    "Express",
+    "RESTful",
+    "APi",
+    "E-learning"
+  ],
+  "author": "Idiakose Sunday",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^2.5.0",
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
+    "express": "^4.15.4",
+    "method-override": "^2.3.9",
+    "mongoose": "^4.11.7"
+  }
+}
