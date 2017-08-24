@@ -1,0 +1,73 @@
+body {
+	min-width: 320px;
+}
+
+/*--Cursor--*/
+a,input[type=button],
+input[type=submit],
+button {
+	cursor: pointer;
+}
+
+/*--Link Buttons--*/
+.btn-link {
+	color: #0275d8;
+	&:hover {
+		text-decoration: underline !important;
+	}
+	
+	&:focus {
+	box-shadow: none !important;
+	color: #0275d8;
+	text-decoration:none
+	}
+}
+
+/*--Forms--*/
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="date"],
+select option,
+textarea {
+	font-size: 16px;
+}
+
+.formErrors {
+	padding-top: 6px;
+}
+
+.ng-invalid.ng-dirty,
+.ng-invalid.ng-dirty:focus {
+	border-color: #d9534e !important;
+}
+
+input::-webkit-input-placeholder {
+	color: rgba(0,0,0,0.25) !important;
+	opacity: 1 !important;
+}
+
+input::-moz-input-placeholder {
+	color: rgba(0,0,0,0.25) !important;
+	opacity: 1 !important;
+}
+
+input:-moz-placeholder {
+	color: rgba(0,0,0,0.25) !important;
+	opacity: 1 !important;
+}
+
+input:-ms-input-placeholder {
+	color: rgba(0,0,0,0.25) !important;
+	opacity: 1 !important;
+}
+
+
+/*--Helpers--*/
+.opacity-half {
+	opacity: .5;
+}
+
+.list-group-item > strong {
+	padding-right: 5px;
+}

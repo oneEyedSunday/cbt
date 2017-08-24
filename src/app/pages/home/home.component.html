@@ -1,0 +1,28 @@
+<div class="container">
+  <!-- <div class="row"> -->
+    <app-loading *ngIf="loading"></app-loading>
+
+    <ng-template [ngIf]="utils.isLoaded(loading)">
+        <ng-template [ngIf]="testList">
+            <ng-template [ngIf]="testList.length">
+                <!-- List tests -->
+                <section class="list-group">
+                  <a *ngFor="let test of testList" [routerLink]="['/test', test._id]"
+                   class="list-group-item list-group-item-action flex-column align-items-start">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1" [innerHTML]="test.title"></h5>
+                      </div>
+                 </a>
+                </section>
+            </ng-template>
+
+            <p class="alert alert-info" *ngIf="!testList.length">
+            No tests yet. Check back soon.</p>
+        </ng-template>
+
+        <!-- Error loadin tests -->
+        <p class="alert alert-danger" *ngIf="error">
+        <strong>Oops!</strong> Be like NEPA done take light for our server farms.</p>
+    </ng-template>
+  <!-- </div> -->
+</div>

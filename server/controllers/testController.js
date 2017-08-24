@@ -11,7 +11,8 @@ exports.index = (req,res)=>{
   });
 
   Promise.all([test_count, tests])
-  .then((vals)=>{res.send({count: vals[0], list: vals[1]})})
+  //.then((vals)=>{res.send({count: vals[0], list: vals[1]})})
+  .then(vals => res.send(vals[1]))
   .catch(err=> res.status(500).send({message: err.message}))
 }
 
