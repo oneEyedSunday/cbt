@@ -12,6 +12,7 @@ import { LoadingComponent } from './core/loading.component';
 
 import { ApiService } from './core/api.service';
 import { UtilsService } from './core/utils.service';
+import { TestComponent } from './pages/test/test.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { UtilsService } from './core/utils.service';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    LoadingComponent
+    LoadingComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,

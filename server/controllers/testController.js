@@ -18,7 +18,7 @@ exports.index = (req,res)=>{
 
 
 exports.test_detail = (req,res)=>{
-  Test.findById(req.params.id).populate({path: 'questions', select: '_id options', populate: {path: 'options', select: 'text'}}).exec((err, test)=>{
+  Test.findById(req.params.id).populate({path: 'questions', select: '_id text options', populate: {path: 'options', select: 'text'}}).exec((err, test)=>{
     if (err) return res.status(500).send({message: err.message});
     if (!test) return res.status(400).send({mesage: 'Test doesnot exist.'});
     res.send(test);

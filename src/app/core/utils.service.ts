@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+
 @Injectable()
 export class UtilsService {
 
@@ -7,6 +8,10 @@ export class UtilsService {
 
   isLoaded(loading: boolean): boolean {
     return loading === false;
+  }
+
+  questionCount(array: any []): number {
+    return array.length;
   }
 
 }

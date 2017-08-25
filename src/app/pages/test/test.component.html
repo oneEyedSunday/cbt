@@ -1,0 +1,63 @@
+<app-loading *ngIf="loading"></app-loading>
+
+<ng-template [ngIf]="utils.isLoaded(loading)">
+  <ng-template [ngIf]="test">
+	<h1 class="text-center">{{test.title}}</h1>
+  <p class="lead">
+    This test currently has {{questionCount}} questions.
+  </p>
+  <ng-template [ngIf]="test.questions">
+    <div *ngFor="let question of test.questions">
+      <div class="card">
+        <div class="card-header">
+          {{question.text}}
+        </div>
+        <div class="card-block">
+          <!-- <p class="lead" *ngFor="let option of question.options"></p> -->
+            <!-- <input type="radio"> {{option.text}} -->
+            <div *ngFor="let option of question.options">
+            <div class="form-check form-check-inline" >
+              <p class="lead">
+      			<label class="form-check-label">
+      				<input
+      				type="radio"
+      				 name="option"
+      				 class="form-check-input space-right"
+      				 required>{{option.text}}
+      			</label>
+          </p>
+      		</div>
+
+        </div>
+          <button class="btn btn-sm btn-danger">Clear choice</button>
+        </div>
+      </div>
+
+    </div>
+  </ng-template>
+  <!--
+	<ng-template [ngIf]="test">
+
+		<div class="card">
+			<div class="card-header">
+				<ul class="nav nav-tabs card-header-tabs">
+					<li class="nav-item">
+						<a class="nav-link" [routerLink]="[]" [queryParams]="{tab: 'details'}" [ngClass]="{'active': utils.tabIs(tab, 'details')}">Details</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" [routerLink]="[]" [queryParams]="{tab: 'rsvp'}" [ngClass]="{'active': utils.tabIs(tab, 'rsvp')}">RSVP</a></li>
+				</ul>
+			</div>
+
+
+
+			<app-event-detail *ngIf="utils.tabIs(tab, 'details')" [event]="event"></app-event-detail>
+
+
+			<app-rsvp *ngIf="utils.tabIs(tab, 'rsvp')" [eventId]="event._id" [eventPast]="eventPast"></app-rsvp>
+		</div>
+	</ng-template> -->
+
+
+	<p *ngIf="error" class="alert alert-danger">
+	<strong>Oops!</strong> There was an error retrieving this test.</p>
+</ng-template>

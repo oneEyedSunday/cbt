@@ -1,3 +1,5 @@
+import { QuestionModel } from './question.model';
+
 export class TestModel {
-  constructor(public title: string,public questions: string[], public _id?:string){}
+  constructor(public title: string,public questions: QuestionModel[], public _id?:string){}
 }
