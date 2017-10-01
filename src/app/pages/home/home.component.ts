@@ -3,6 +3,7 @@ import { ApiService } from './../../core/api.service';
 import { UtilsService } from './../../core/utils.service';
 import { Subscription } from 'rxjs/Subscription';
 import { TestModel } from './../../core/models/test.model';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -15,14 +16,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   testList: TestModel[];
   loading: boolean;
   error: boolean;
+  pageTitle = 'Home | All Tests';
 
 
   constructor(
     public utils: UtilsService,
-    private api: ApiService
+    private api: ApiService,
+    private title: Title
   ) { }
 
   ngOnInit() {
+    this.title.setTitle(this.pageTitle);
     this._getTestList();
   }
 

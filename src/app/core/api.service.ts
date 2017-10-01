@@ -21,8 +21,16 @@ export class ApiService {
     return this.http.get(`${ENV.BASE_API}test/${id}`).catch(this._handleError);
   }
 
+  getSubjectById$(id: string): Observable<SubjectModel> {
+    return this.http.get(`${ENV.BASE_API}subjects/${id}`).catch(this._handleError);
+  }
+
   getSubjects$(): Observable<SubjectModel[]> {
     return this.http.get(`${ENV.BASE_API}subjects`).catch(this._handleError);
+  }
+
+  postSubject$(subject: SubjectModel): Observable<SubjectModel> {
+    return this.http.post(`${ENV.BASE_API}subjects/new`, subject).catch(this._handleError);
   }
 
 

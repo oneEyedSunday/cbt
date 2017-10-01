@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +13,11 @@ import { LoadingComponent } from './core/loading.component';
 import { ApiService } from './core/api.service';
 import { UtilsService } from './core/utils.service';
 import { TestComponent } from './pages/test/test.component';
+import { AdminComponent } from './pages/admin/admin.component';
+import { CreateSubjectComponent } from './pages/admin/create-subject.component';
+import { CreateTestComponent } from './pages/admin/create-test/create-test.component';
+import { TestCreateComponent } from './pages/admin/test-create/test-create.component';
+import { TestFormComponent } from './pages/admin/test-form.component';
 
 
 @NgModule({
@@ -22,7 +27,12 @@ import { TestComponent } from './pages/test/test.component';
     HeaderComponent,
     FooterComponent,
     LoadingComponent,
-    TestComponent
+    TestComponent,
+    AdminComponent,
+    CreateSubjectComponent,
+    CreateTestComponent,
+    TestCreateComponent,
+    TestFormComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +42,8 @@ import { TestComponent } from './pages/test/test.component';
   ],
   providers: [
     ApiService,
-    UtilsService
+    UtilsService,
+    Title
   ],
   bootstrap: [AppComponent]
 })

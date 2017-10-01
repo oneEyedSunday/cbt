@@ -1,0 +1,77 @@
+<app-loading *ngIf="loading"></app-loading>
+
+<ng-template [ngIf]="utils.isLoaded(loading)">
+	<ng-template [ngIf]="subject">
+			<ng-template [ngIf]="!ready">
+				<form class="form" (ngSubmit)="onSubmit()" #prep="ngForm">
+					<!-- Test Title -->
+					<div class="form-group">
+				    <label for="name">Name</label>
+				    <input
+				      id="name"
+				      name="name"
+				      type="text"
+				      class="form-control"
+				      minlength="3"
+				      maxlength="300"
+				      #name="ngModel"
+				      [(ngModel)]="testname"
+				      required>
+				    <div
+				      *ngIf="name.errors && name.dirty"
+				      class="small text-danger formErrors">
+				      <div [hidden]="!name.errors.required">
+				        Name is <strong>required</strong>.
+				      </div>
+				      <div [hidden]="!name.errors.minlength">
+				        Name must be 3 characters or more.
+				      </div>
+				    </div>
+				  </div>
+
+					<!-- No of questions -->
+					<div class="form-group">
+						<label for="">Number of Questions</label>
+						<input type="number" id="noOfQues" name="noOfQues" min="5" max="100" class="form-control" #noOfQues="ngModel" [(ngModel)]="questionCount"
+						 required>
+						<div *ngIf="noOfQues.errors && noOfQues.dirty" class="small text-danger formErrors">
+							<div [hidden]="!noOfQues.errors.required">Number of questions is <strong>required</strong></div>
+							<div [hidden]="!noOfQues.errors.min">
+								Number of questions must be at <strong>least 5</strong>
+							</div>
+							<div [hidden]="!noOfQues.errors.max">
+								Number of questions must be at most <strong>100</strong>.
+							</div>
+						</div>
+					</div>
+					<!-- No of options per question -->
+					<div class="form-group">
+						<label for="">Number of Options</label>
+						<input type="number" id="noOfOpts" name="noOfOpts" min="2" max="5" class="form-control" #noOfOpts="ngModel" [(ngModel)]="optionCount"
+						 required>
+						<div *ngIf="noOfOpts.errors && noOfOpts.dirty" class="small text-danger formErrors">
+							<div [hidden]="!noOfOpts.errors.required">Number of options is <strong>required</strong></div>
+							<div [hidden]="!noOfOpts.errors.min">
+								Number of options must be at <strong>least 2</strong>
+							</div>
+							<div [hidden]="!noOfOpts.errors.max">
+								Number of options must be at most <strong>5</strong>.
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary" [disabled]="!prep.form.valid">Proceed</button>
+					</div>
+				</form>
+	</ng-template>
+		
+
+	<ng-template [ngIf]="ready">
+		<app-test-form [qC]="this.questionCount" [oC]="this.optionCount" [ready]="this.ready" (back)="toggle()" [s]="this.subject"></app-test-form>
+	</ng-template>
+
+	</ng-template>
+
+	<p *ngIf="error" class="alert alert-danger">
+	<strong>Oops!</strong> There was an error retrieving this test.</p>
+</ng-template>

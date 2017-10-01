@@ -15,9 +15,10 @@
         <div class="card-block">
           <!-- <p class="lead" *ngFor="let option of question.options"></p> -->
             <!-- <input type="radio"> {{option.text}} -->
-            <div *ngFor="let option of question.options">
+            <!-- make it an ol -->
+            <div *ngFor="let option of question.options; let i=index">
             <div class="form-check form-check-inline" >
-              <p class="lead">
+              <p class="lead">{{i + 1}}
       			<label class="form-check-label">
       				<input
       				type="radio"
@@ -29,33 +30,12 @@
       		</div>
 
         </div>
-          <button class="btn btn-sm btn-danger">Clear choice</button>
         </div>
       </div>
 
     </div>
   </ng-template>
-  <!--
-	<ng-template [ngIf]="test">
 
-		<div class="card">
-			<div class="card-header">
-				<ul class="nav nav-tabs card-header-tabs">
-					<li class="nav-item">
-						<a class="nav-link" [routerLink]="[]" [queryParams]="{tab: 'details'}" [ngClass]="{'active': utils.tabIs(tab, 'details')}">Details</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" [routerLink]="[]" [queryParams]="{tab: 'rsvp'}" [ngClass]="{'active': utils.tabIs(tab, 'rsvp')}">RSVP</a></li>
-				</ul>
-			</div>
-
-
-
-			<app-event-detail *ngIf="utils.tabIs(tab, 'details')" [event]="event"></app-event-detail>
-
-
-			<app-rsvp *ngIf="utils.tabIs(tab, 'rsvp')" [eventId]="event._id" [eventPast]="eventPast"></app-rsvp>
-		</div>
-	</ng-template> -->
 
 
 	<p *ngIf="error" class="alert alert-danger">
