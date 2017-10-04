@@ -10,5 +10,9 @@ router.get('/list', testController.index);
 
 router.get('/:id', testController.test_detail);
 
+router.post('/new', testController.create);
+
+router.post('/mark/:id', testController.mark);
+
 
 module.exports = router;

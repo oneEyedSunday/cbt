@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { SubjectModel } from './../../../core/models/subject.model';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { ApiService } from './../../../core/api.service'; 
+import { ApiService } from './../../../core/api.service';
 import { UtilsService } from './../../../core/utils.service';
 
 @Component({
@@ -23,6 +23,7 @@ export class TestCreateComponent implements OnInit, OnDestroy {
   routeSub: Subscription;
   subjectSub: Subscription;
   subject: SubjectModel;
+  testname: string;
 
   constructor(private title: Title,
     private router: ActivatedRoute,
@@ -47,7 +48,7 @@ export class TestCreateComponent implements OnInit, OnDestroy {
       this.subject = res;
       console.log("Subject fetched from api is:" + this.subject.name);
       this.loading = false;
-    }, 
+    },
     err => {
       console.error(err);
       this.loading = false;

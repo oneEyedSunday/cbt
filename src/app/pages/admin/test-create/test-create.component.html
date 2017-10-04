@@ -64,10 +64,10 @@
 					</div>
 				</form>
 	</ng-template>
-		
+
 
 	<ng-template [ngIf]="ready">
-		<app-test-form [qC]="this.questionCount" [oC]="this.optionCount" [ready]="this.ready" (back)="toggle()" [s]="this.subject"></app-test-form>
+		<app-test-form [testname]="this.testname" [qC]="this.questionCount" [oC]="this.optionCount" [ready]="this.ready" (back)="toggle()" [s]="this.subject"></app-test-form>
 	</ng-template>
 
 	</ng-template>

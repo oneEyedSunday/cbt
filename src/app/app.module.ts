@@ -18,6 +18,7 @@ import { CreateSubjectComponent } from './pages/admin/create-subject.component';
 import { CreateTestComponent } from './pages/admin/create-test/create-test.component';
 import { TestCreateComponent } from './pages/admin/test-create/test-create.component';
 import { TestFormComponent } from './pages/admin/test-form.component';
+import { ResultComponent } from './pages/result/result.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { TestFormComponent } from './pages/admin/test-form.component';
     CreateSubjectComponent,
     CreateTestComponent,
     TestCreateComponent,
-    TestFormComponent
+    TestFormComponent,
+    ResultComponent
   ],
   imports: [
     BrowserModule,

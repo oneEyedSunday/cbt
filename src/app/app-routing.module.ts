@@ -6,12 +6,17 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { CreateSubjectComponent } from './pages/admin/create-subject.component';
 import { CreateTestComponent } from './pages/admin/create-test/create-test.component';
 import { TestCreateComponent } from './pages/admin/test-create/test-create.component';
+import { ResultComponent } from './pages/result/result.component';
 
 const routes: Routes = [
   {
     path: 'test/:id',
     component: TestComponent,
     children:[]
+  },
+  {
+    path: 'result',
+    component: ResultComponent
   },
   {
     path: 'admin',
@@ -45,4 +50,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-

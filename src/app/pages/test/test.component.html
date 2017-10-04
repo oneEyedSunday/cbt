@@ -7,7 +7,7 @@
     This test currently has {{questionCount}} questions.
   </p>
   <ng-template [ngIf]="test.questions">
-    <div *ngFor="let question of test.questions">
+    <div *ngFor="let question of test.questions; let q=index; trackBy:trackByIndex">
       <div class="card">
         <div class="card-header">
           {{question.text}}
@@ -16,14 +16,15 @@
           <!-- <p class="lead" *ngFor="let option of question.options"></p> -->
             <!-- <input type="radio"> {{option.text}} -->
             <!-- make it an ol -->
-            <div *ngFor="let option of question.options; let i=index">
+            <div *ngFor="let option of question.options; let i=index;trackBy:trackByIndex">
             <div class="form-check form-check-inline" >
               <p class="lead">{{i + 1}}
       			<label class="form-check-label">
       				<input
       				type="radio"
-      				 name="option"
+      				 name="option+{{q}}"
       				 class="form-check-input space-right"
+               (change)="flick(q,i)"
       				 required>{{option.text}}
       			</label>
           </p>
@@ -34,6 +35,10 @@
       </div>
 
     </div>
+
+    <div>
+      <button class="btn btn-primary" (click)="onSubmit()">Submit Test</button>
+  </div>
   </ng-template>
 
 

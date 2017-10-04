@@ -1,21 +1,18 @@
 	<div class="pull-right mb-3">
 		<button (click)="goBack()" class="btn btn-danger">Back</button>
 	</div>
-	
+
 	<form (ngSubmit)="createTest()" #testForm="ngForm">
 			<div class="card" *ngFor="let question of questionsArr; let i=index;">
 				<div class="card-header">
 					<input type="text" placeholder="Question {{i+1}}" name="question{{i}}"  class="form-control" [(ngModel)]="questionsArr[i].text">
 				</div>
 				<div class="card-block" *ngFor="let option of question.options; let u=index;">
-					<input type="text" class="form-control" placeholder="Option {{u+1}}" name="option" id="option" [(ngModel)]="question.options[u].text">
+					<input type="radio" (change)="setAnswer(i,u)" name="chkq{{i%this.oC}}" class="form-check-input space-right">
+					<input type="text" class="form-control" placeholder="Option {{u+1}}" name="option+{{u}}" id="option" [(ngModel)]="question.options[u].text" >
 				</div>
 			</div>
 
-		<button type="submit" [disabled]="" class="btn btn-primary mt-3">Create Test</button>
+		<button type="submit" [disabled]="submitting" class="btn btn-primary mt-3">Create Test</button>
 
 	</form>
-
-	
-
-	
