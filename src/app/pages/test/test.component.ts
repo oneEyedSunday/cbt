@@ -4,6 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs/Subscription';
 import { ApiService } from './../../core/api.service';
 import { UtilsService } from './../../core/utils.service';
+import { ResultService } from './../../core/result.service';
 import { TestModel } from './../../core/models/test.model';
 
 @Component({
@@ -29,7 +30,9 @@ export class TestComponent implements OnInit, OnDestroy {
     private _router: Router,
     private api: ApiService,
     public utils: UtilsService,
-    private title: Title) { }
+    private title: Title,
+    private resultservice: ResultService
+  ) { }
 
   ngOnInit() {
     this.title.setTitle(this.pageTitle);
@@ -94,9 +97,10 @@ export class TestComponent implements OnInit, OnDestroy {
     // if no option as in attempted is ticked
     // choices array isnt set
     this.submitTestSub = this.api.markTest$(this.test_id, choices)
-    .subscribe(data => this._router.navigate(['/result', data ]));
+    .subscribe(data => this._handleTestSubmission(data));
     // perhaps use behaviour subject
     // or ngrx to store state.
+    // or shared service
 
 
     // send a multidimensional array
@@ -105,6 +109,11 @@ export class TestComponent implements OnInit, OnDestroy {
 
     // console.log(tickedpieces);
     // console.log(choices);
+  }
+
+  private _handleTestSubmission(res){
+    this.resultservice.set(res.result);
+    this._router.navigate(['/result']);
   }
 
   trackByIndex(index: number){

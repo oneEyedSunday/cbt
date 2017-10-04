@@ -11,6 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import { LoadingComponent } from './core/loading.component';
 
 import { ApiService } from './core/api.service';
+import { ResultService } from './core/result.service';
 import { UtilsService } from './core/utils.service';
 import { TestComponent } from './pages/test/test.component';
 import { AdminComponent } from './pages/admin/admin.component';
@@ -45,7 +46,8 @@ import { ResultComponent } from './pages/result/result.component';
   providers: [
     ApiService,
     UtilsService,
-    Title
+    Title,
+    ResultService
   ],
   bootstrap: [AppComponent]
 })

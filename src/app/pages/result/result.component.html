@@ -1,3 +1,7 @@
-<p>
-  result works!
-</p>
+<div *ngIf="result">
+  <p class="lead">{{result}}</p>
+</div>
+
+<div *ngIf="!result">
+  <p>Youve not taken a test.</p>
+</div>
