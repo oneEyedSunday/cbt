@@ -42,7 +42,27 @@ export class ApiService {
     return this.http.post(`${ENV.BASE_API}test/mark/${id}`, choices).catch(this._handleError);
   }
 
+  logout$(): Observable<string> {
+    console.log("api tryna logout");
+    return this.http.post(`${ENV.BASE_API}users/logout`, null).catch(this._loginError);
+  }
 
+  login$(email: string, password: string): Observable<string> {
+    return this.http.post(`${ENV.BASE_API}users/login`, {email: email, password: password}).catch(this._loginError);
+  }
+
+  token$():Observable<string> {
+    return this.http.get(`${ENV.BASE_API}users/token`).catch(this._handleError);
+  }
+
+  private _loginError(err: HttpErrorResponse | any){
+    if(err instanceof HttpErrorResponse) {
+      if (err.status === 401){
+        return Observable.throw("Invalid credentials");
+      }
+    }
+    return Observable.throw(err.message || 'Error unable to complete');
+  }
   private _handleError(err: HttpErrorResponse | any){
     const errorMsg = err.message || 'Error unable to complete request.';
     return Observable.throw(errorMsg);

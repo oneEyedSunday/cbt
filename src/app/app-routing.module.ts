@@ -7,6 +7,7 @@ import { CreateSubjectComponent } from './pages/admin/create-subject.component';
 import { CreateTestComponent } from './pages/admin/create-test/create-test.component';
 import { TestCreateComponent } from './pages/admin/test-create/test-create.component';
 import { ResultComponent } from './pages/result/result.component';
+import { LoginComponent} from './login/login.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,10 @@ const routes: Routes = [
         component: TestCreateComponent
       }
     ]
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   },
   {
     path: '',

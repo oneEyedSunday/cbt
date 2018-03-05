@@ -22,7 +22,7 @@ const cors = require('cors');
 
 
 // configuration
-const config = require('./server/config');
+const config = require('./server/config/');
 
 /*
   Database connection
@@ -96,4 +96,4 @@ if (process.env.NODE_ENV !== 'dev'){
 // and make .crt and .key
 app.listen(port, ()=>{
   console.log(`Server running on localhost:${port}`);
-}); 
+});
