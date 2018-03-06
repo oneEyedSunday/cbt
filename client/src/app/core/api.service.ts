@@ -15,7 +15,7 @@ export class ApiService {
   // GET list of Tests
 
   getTests$(): Observable<TestModel[]> {
-    return this.http.get(`${ENV.BASE_API}test/list`).catch(this._handleError);
+    return this.http.get(`${ENV.BASE_API}test`).catch(this._handleError);
   }
 
   getTestById$(id: string): Observable<TestModel> {

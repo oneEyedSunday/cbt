@@ -8,11 +8,11 @@ router.get('/', userController.index);
 router.get('/token',Policies.isAuth, userController.token);
 
 
-router.get('/:id', userController.find);
+router.get('/:id', Policies.findMiddleware, userController.find);
 
-router.post('/new', userController.create);
+router.post('/new', Policies.createMiddleware , userController.create);
 
-router.post('/login', userController.login);
+router.post('/login', Policies.loginMiddleware,  userController.login);
 
 router.post('/logout', userController.logout);
 

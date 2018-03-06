@@ -5,15 +5,18 @@ DEPEDNDENCIES
 */
 
 
-//modules
+require('./config'); //make configuration available
+require('./global_functions');
 
+//modules
 const express = require('express');
 const path = require('path');
 // if youre gonna want file uploads
-// replace with multex
+// replace with multer
 // or express file uploads
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+mongoose.Promise = Promise;
 const methodOverride = require('method-override');
 // against request forgery
 // might nake testing hard,
@@ -21,22 +24,29 @@ const methodOverride = require('method-override');
 const cors = require('cors');
 
 
-// configuration
-const config = require('./server/config/');
-
 /*
   Database connection
 */
+let monDb
+let URI
+if(CONFIG.db.dialect === 'mongo'){
+  URI = `mongodb://${CONFIG.db.host}/${CONFIG.db.name}`
+  mongoose.connect(URI, {
+    useMongoClient: true
+  })
 
-mongoose.connect(config.MONGO_URI, {useMongoClient: true});
-const monDb = mongoose.connection;
+  monDb = mongoose.connection
+} else {
+  console.error("ERROR: This doesnt support other databases apart from mongoDB...yet.");
+  return
+}
 
 monDb.on('error', ()=>{
-  console.error('MongoDb connection Error. Please make sure that', config.MONGO_URI, 'is running.');
+  console.error('MongoDb connection Error. Please make sure that', URI, 'is running.');
 });
 
 monDb.once('open', ()=>{
-  console.info('Connected to MongoDb:', config.MONGO_URI);
+  console.info('Connected to MongoDb:', URI);
 });
 
 
@@ -58,12 +68,12 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(cors());
 
 // set port
-const port = process.env.PORT || '8083';
+const port = CONFIG.port;
 app.set('port', port);
 
 // static path
-if (process.env.NODE_ENV !== 'dev'){
-  app.use('/', express.static(path.join(__dirname, './dist')));
+if (CONFIG.app !== 'development'){
+  app.use('/', express.static(path.join(__dirname, '../dist')));
 }
 
 
@@ -75,16 +85,30 @@ if (process.env.NODE_ENV !== 'dev'){
 // might break up that file
 // perhaps if we're gonna extemd this app
 // to alos be a student portal
-require('./server/api')(app,config);
+require('./api')(app);
 
 // pass routing to angular app
 // dont run in prod
-if (process.env.NODE_ENV !== 'dev'){
+
+if (CONFIG.app !== 'development'){
   app.get('*', (req,res)=>{
-    res.sendFile(path.join(__dirname, '/dist/index.html'));
+    res.sendFile(path.join(__dirname, '../dist/index.html'));
   });
 }
 
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500).send({
+    error: err
+  });
+});
 /**
   server
 **/

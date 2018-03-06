@@ -1,7 +1,7 @@
 const User = require('./../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const CONFIG = require('../config/');
+const validator = require('validator');
 // change thus to jwtkeys
 
 // use bcrypt_mode for async bcryptjs
@@ -17,32 +17,45 @@ exports.index = (req,res) => {
   .catch(err => res.status(500).send({message: err.message}));
 };
 
-exports.create = (req, res) => {
-    User.findOne({
-      email: req.body.email
-    }).then(existingUser => {
-      if (existingUser) return res.status(409).send({
-        message: 'This email is already in use.'
-      })
+exports.create = async (req, res) => {
+  let err, existingUser, user;
+  [err, existingUser] = await to(User.findOne({email: req.body.email.normalize()}))
+  if (err) return res.status(500).send({ error: err.message })
+  if (existingUser) return res.status(403).send({ error: 'Credentials in use, this email address is taken' })
 
-      const user = new User({
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        middlename: req.body.middlename,
-        email: req.body.email,
-        password: req.body.password,
-        roles: req.body.roles,
-        subjects: req.body.subjects
-      })
-      // user.create
-      user.save().then(u => {
-        return res.status(200).send({
-          user: u,
-          token: u.getToken()
-        })
-      })
-      .catch(err => res.status(500).send({message: err.message}))
-    }).catch(err => res.status(500).send({message: err.message}))
+
+
+  let candidate = {
+    firstname: 'Godson',
+    lastname: 'El Rey',
+    email: 'telmozarra@gmail.com',
+    password: 'zaza'
+  }
+
+  // const cu = new User(candidate)
+
+  // cu.save().then(c => res.status(200).send({
+  //   user: c.toJSON(),
+  //   token: c.getToken()
+  // })).catch(err => res.status(500).send({error: err.errmsg}))
+  [err, user] = await to(User.create({
+    firstname: 'Godson',
+    lastname: 'El Rey',
+    email: 'telmozarra@gmail.com',
+    password: 'zaza'
+  }))
+
+  if (err) return res.status(500).send({error: err})
+  console.log(user)
+  return res.status(200).send({
+    message : 'ok',
+    user: user
+    // user: user.toJSON(),
+    // token: user.getToken()
+  })
+
+  // return res.send(candidate.password)
+  // .then(c => res.status(200).send({c: c})).catch(err => res.status(500).send(err))
 };
 
 exports.find = (req, res) => {
@@ -60,25 +73,43 @@ exports.find = (req, res) => {
   .catch(err => res.status(500).send({message: err.message}))
 };
 
-exports.login = function(req,res){
-  if(!req.body.email || !req.body.password) return res.status(500).send({message:"Fill all required information"});
+exports.login = async function(req,res){
+  // User.findOne({
+  //   email: req.body.email
+  // }).then(user => {
+  //   if (!user) return res.status(403).send({message:"User not found, please sign up."});
+  //   bcrypt.compare(req.body.password, user.password, function(err,matched){
+  //       if (err) return res.status(500).send({message: err.message});
+  //       if(!matched) return res.status(403).send({mesage:"Incorrect password"});
+  //
+  //       // return token
+  //       return res.status(200).send({
+  //         user: user.toJSON(),
+  //         token: user.getToken()
+  //       });
+  //     });
+  // })
+  // .catch(err => res.status(500).send({message: err.message}))
 
-  User.findOne({
-    email: req.body.email
-  }).then(user => {
-    if (!user) return res.status(403).send({message:"User not found, please sign up."});
-    bcrypt.compare(req.body.password, user.password, function(err,matched){
-        if (err) return res.status(500).send({message: err.message});
-        if(!matched) return res.status(403).send({mesage:"Incorrect password"});
+  let err, user;
+  [err, user] = await to(User.findOne({ email: req.body.email.normalize() }))
+  // if (err) TE(err.message)
+  if (err) return res.status(422).send({error: err.message})
 
-        // return token
-        return res.status(200).send({
-          user: user.toJSON(),
-          token: user.getToken()
-        });
-      });
+
+  // if (!user) TE('Not registered')
+  if (!user) {
+    return res.status(422).send({error: 'Not registered'})
+  } else {
+  [err, user] = await to(user.comparePassword(req.body.password))
+  // if (err) TE(err.message)
+  if (err) return res.status(422).send({error: err.message})
+  // return user;
+  return res.status(200).send({
+    token: user.getToken(),
+    user: user.toJSON()
   })
-  .catch(err => res.status(500).send({message: err.message}))
+}
 }
 
 exports.logout = function(req, res){

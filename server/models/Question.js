@@ -10,6 +10,8 @@ const questionSchema = new Schema({
   },
   // perhaps make the answer a type of optionSchema
   // to ensure theres an answer
+  // check how to make answer an enum of options
+  // would make populating db cumbersome
   answer: {type: String, required: true},
   options: [{
     type: Schema.ObjectId,

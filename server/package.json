@@ -1,0 +1,48 @@
+{
+  "name": "server",
+  "version": "2.0.0",
+  "description": "server for cbt app",
+  "main": "index.js",
+  "scripts": {
+    "dev start": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/oneEyedSunday/cbt.git"
+  },
+  "keywords": [
+    "Express",
+    "RESTful",
+    "APi",
+    "E-learning"
+  ],
+  "author": "Idiakose Sunday",
+  "private": true,
+  "dependencies": {
+    "async": "^2.6.0",
+    "bcrypt": "^1.0.3",
+    "bcrypt-nodejs": "0.0.3",
+    "bcrypt-promise": "^2.0.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "debug": "^3.1.0",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.2",
+    "joi": "^13.1.2",
+    "jsonwebtoken": "^8.2.0",
+    "method-override": "^2.3.10",
+    "mongoose": "^5.0.9",
+    "mongoose-validator": "^2.0.2",
+    "morgan": "^1.9.0",
+    "parse-error": "^0.2.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1",
+    "serve-favicon": "^2.4.5",
+    "validator": "^9.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.1"
+  }
+}
