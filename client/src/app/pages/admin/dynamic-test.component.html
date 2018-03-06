@@ -1,0 +1,36 @@
+<form [formGroup]="form">
+	<!-- <pre>{{ form.value | json }}</pre> -->
+	<div *ngFor="let question of Questions; let i = index" [formGroup]="question">
+		<div class="card my-2">
+			<div class="card-header d-flex">
+					<strong class="mr-1">{{i + 1}}.</strong>
+					<input type="text" placeholder="Question {{i+1}}" name="question{{i}}"  class="form-control mr-2 space-left" formControlName="question">
+					<button class="btn btn-danger" (click)="removeQuestion(i)">
+						<span><i class="fas fa-trash"></i></span>
+					</button>
+			</div>
+			<div class="card-block">
+				<div *ngFor="let option of OptionsForQuestion(question); let optionIndex=index;" [formGroup]="option" class="d-flex justify-content-between py-2 px-2">
+					<input type="radio" (change)="setAnswer(question,option)" class="form-check-input space-right" name="option{{i}}">
+					<input type="text" placeholder="Option" formControlName="text" class="form-control mr-2">
+					<button class="btn btn-danger" (click)="removeOption(question, optionIndex)"><span><i class="fas fa-trash"></i></span></button>
+				</div>
+			</div>
+			<div class="card-footer">
+				<button class="btn btn-success" (click)="addOption(i)"><span><i class="fas fa-calendar-plus" ></i> &nbsp; Option</span> </button>
+			</div>
+		</div>
+	</div>
+	<button (click)="addQuestion()" class="btn btn-success">
+		<span><i class="fa fa-plus"></i></span> Question
+	</button>
+	<!-- 
+	<br>
+	<button (click)="addQuestion()">Add Question</button>
+	<button *ngFor="let q of form.value; let i = index" (click)="addOption(i)">Add option for Question {{i + 1}}</button>
+	<button (click)="removeQuestion(i)" *ngFor="let q of form.value; let i = index">Remove Question {{i + 1}}</button>
+	<ul *ngFor="let q of form.value; let qi = index">
+		<button *ngFor="let o of form.value[qi].options; let oi = index" (click)="removeOption(qi, oi)">Remove Option {{ oi + 1}} of question {{ qi + 1 }}</button>
+	</ul> -->
+	
+</form>

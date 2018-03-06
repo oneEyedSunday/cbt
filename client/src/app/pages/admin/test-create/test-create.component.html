@@ -2,6 +2,14 @@
 
 <ng-template [ngIf]="utils.isLoaded(loading)">
 	<ng-template [ngIf]="subject">
+		<section>
+			How do you want to create the test's questions?
+			Rigid or flexible?
+			<button class="btn btn-default" (click)="changeWizard()">
+				<span><i class="fas {{ creationWizard === 'FLEXIBLE' ? 'fa-toggle-on' : 'fa-toggle-off' }}"></i></span>
+			</button>
+			{{creationWizard}}
+		</section>
 			<ng-template [ngIf]="!ready">
 				<form class="form" (ngSubmit)="onSubmit()" #prep="ngForm">
 					<!-- Test Title -->
@@ -28,7 +36,7 @@
 				      </div>
 				    </div>
 				  </div>
-
+					<ng-template [ngIf]="creationWizard !== 'FLEXIBLE'">
 					<!-- No of questions -->
 					<div class="form-group">
 						<label for="">Number of Questions</label>
@@ -62,13 +70,16 @@
 					<div class="form-group">
 						<button type="submit" class="btn btn-primary" [disabled]="!prep.form.valid">Proceed</button>
 					</div>
+					</ng-template>
 				</form>
-	</ng-template>
+			</ng-template>
 
 
-	<ng-template [ngIf]="ready">
+	<ng-template [ngIf]="ready && creationWizard === 'RIGID'">
 		<app-test-form [testname]="this.testname" [qC]="this.questionCount" [oC]="this.optionCount" [ready]="this.ready" (back)="toggle()" [s]="this.subject"></app-test-form>
 	</ng-template>
+
+	<app-dynamic-test-create-form *ngIf="creationWizard === 'FLEXIBLE'"></app-dynamic-test-create-form>
 
 	</ng-template>
 

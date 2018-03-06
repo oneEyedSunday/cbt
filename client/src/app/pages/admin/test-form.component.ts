@@ -9,8 +9,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-test-form',
-  templateUrl: './test-form.component.html',
-  styleUrls: ['./test-form.component.scss']
+  templateUrl: './test-form.component.html'
 })
 
 

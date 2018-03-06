@@ -13,24 +13,22 @@
           {{question.text}}
         </div>
         <div class="card-block">
-          <!-- <p class="lead" *ngFor="let option of question.options"></p> -->
-            <!-- <input type="radio"> {{option.text}} -->
             <!-- make it an ol -->
-            <div *ngFor="let option of question.options; let i=index;trackBy:trackByIndex">
+          <div *ngFor="let option of question.options; let i=index;trackBy:trackByIndex">
             <div class="form-check form-check-inline" >
               <p class="lead">{{i + 1}}
-      			<label class="form-check-label">
-      				<input
-      				type="radio"
-      				 name="option+{{q}}"
-      				 class="form-check-input space-right"
-               (change)="flick(q,i)"
-      				 required>{{option.text}}
-      			</label>
-          </p>
-      		</div>
+        			 <label class="form-check-label">
+        				<input
+        				type="radio"
+        				 name="option+{{q}}"
+        				 class="form-check-input space-right"
+                 (change)="flick(q,i)"
+        				 required>{{option.text}}
+        			 </label>
+            </p>
+      		 </div>
 
-        </div>
+          </div>
         </div>
       </div>
 
@@ -38,11 +36,12 @@
 
     <div>
       <button class="btn btn-primary" (click)="onSubmit()">Submit Test</button>
-  </div>
+    </div>
   </ng-template>
 
 
 
 	<p *ngIf="error" class="alert alert-danger">
 	<strong>Oops!</strong> There was an error retrieving this test.</p>
+</ng-template>
 </ng-template>

@@ -8,14 +8,14 @@ import { UtilsService } from './../../../core/utils.service';
 
 @Component({
   selector: 'app-test-create',
-  templateUrl: './test-create.component.html',
-  styleUrls: ['./test-create.component.scss']
+  templateUrl: './test-create.component.html'
 })
 
 export class TestCreateComponent implements OnInit, OnDestroy {
 	pageTitle = "Create Test | Waiting Test Questions";
 	ready: boolean = false;
   loading: boolean;
+  creationWizard: string = "FLEXIBLE";
   error: boolean;
 	questionCount: number;
 	optionCount: number;
@@ -66,6 +66,10 @@ export class TestCreateComponent implements OnInit, OnDestroy {
 
   toggle(){
   	this.ready = !this.ready;
+  }
+
+  changeWizard() {
+    this.creationWizard = this.creationWizard === 'FLEXIBLE' ? 'RIGID' : 'FLEXIBLE'
   }
 
   ngOnDestroy(){
