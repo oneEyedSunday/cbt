@@ -8,4 +8,10 @@
 //global styles
 @import 'base';
 
+body {
+  font-family: 'Century Gothic'
+}
 
+.navigatableListItem {
+  cursor: pointer;
+}

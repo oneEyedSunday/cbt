@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row">
+    <div class="col col-offset">
+      <section class="list-group">
+          <div class="card">
+            <div class="card-header">
+        			<button class="show " type="button" data-toggle="collapse" data-target="#collapseSubjectActions" aria-expanded="true">
+        				<span class="sr-only">Toggle</span>
+        				<span><i class="fa fa-bars"></i></span>
+        			</button>
+        			<i class="fa fa-user" aria-hidden="true"></i> Subjects <span class="caret"></span>
+        		</div>
+            <div class="collapse card-block show" id="collapseSubjectActions">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <span class="badge bg-primary">{{ Subjects.length  }}</span> Subjects
+                </li>
+                <li class="list-group-item">
+                  <section>
+                    <p *ngFor="let subject of Subjects">
+                      <a [routerLink]="['subjects/tests', subject._id]" >{{subject.name}}'s Tests</a>
+                    </p>
+                    <p>
+                      <a routerLink="test"  class="card-link"><span><i class="fa fa-plus"></i></span>Test</a>
+                    </p>
+                  </section>
+
+                </li>
+                <li class="list-group-item">
+                  <a routerLink="create-subject" class="card-link"><span><i class="fa fa-plus"></i></span>Subject</a>
+                </li>
+              </ul>
+        		</div>
+          </div>
+        <!-- </div> -->
+      </section>
+    </div>
+  </div>
+</div>

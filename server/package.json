@@ -4,7 +4,7 @@
   "description": "server for cbt app",
   "main": "index.js",
   "scripts": {
-    "dev start": "nodemon index.js",
+    "dev": "nodemon index.js",
     "start": "node index.js"
   },
   "repository": {

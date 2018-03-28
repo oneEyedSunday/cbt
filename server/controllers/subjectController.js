@@ -1,26 +1,21 @@
 const Subject = require('./../models/Subject');
+const Test = require('./../models/Test');
 
 // try using promises instead of async module
 
 // definmitely extract out the find one from creating
 
 exports.index = (req,res)=>{
-  let subject_count = new Promise((res, rej)=>{res(Subject.count())});
+
   let subjects = new Promise((res,rej)=>{
     res(Subject.find());
-  });
-
-  Promise.all([subject_count, subjects])
-  // .then((vals)=>{res.send({count: vals[0], list: vals[1]})})
-  .then((vals)=> {res.send(vals[1])})
+  })
+  .then(vals => res.send(vals))
   .catch(err=> res.status(500).send({message: err.message}))
 };
 
 exports.find = (req,res)=> {
-  // Subject.findOne({
-  //   _id: req.params.id
-  // },
-  Subject.findById(req.params.id, 
+  Subject.findById(req.params.id,
    (err, subject) => {
     if (err) {
       return res.status(500).send({message: err.message});
@@ -55,3 +50,14 @@ exports.create = (req,res) => {
       });
     });
 };
+
+exports.tests = async (req, res) => {
+  try {
+    const tests = await Test.find({subjectId: req.params.id})
+    return res.json(tests)
+  } catch (e) {
+    return res.status(500).send({
+      err: e.message
+    })
+  }
+}

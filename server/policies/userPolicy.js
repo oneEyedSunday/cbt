@@ -88,5 +88,16 @@ exports.findMiddleware = function(req, res, next){
 }
 
 exports.loginMiddleware = function(req, res, next){
+  if(req.body.password === undefined || req.body.email === undefined){
+    throw new Error('Fields cannot be empty')
+  }
   // email and password exist
+  if (!validator.isEmpty(req.body.email) && validator.isEmail(req.body.email) && !validator.isEmpty(req.body.password)) {
+    req.body.email = validator.normalizeEmail(req.body.email, {
+      gmail_lowercase: true
+    })
+    return next()
+  } 
+
+  throw new Error('Incomplete credentials')
 }

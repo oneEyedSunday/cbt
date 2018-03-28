@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 CONFIG = {
-  'app': process.env.APP || 'development',
+  'app': process.env.NODE_ENV || 'development',
   'port': process.env.PORT || '8083',
   'db': {
     'dialect': process.env.DB_DIALECT || 'mongo',

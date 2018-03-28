@@ -1,0 +1,25 @@
+<!-- <pre>
+  {{ test | json }}
+</pre> -->
+
+
+<!-- <div class="card">
+  <div class="card-header">
+    {{ test.title }}
+  </div>
+
+  <div class="card-block">
+			<div class="card" *ngFor="let question of test.questions; let i=index;">
+				<div class="card-header">
+          {{ question.text }}
+				</div>
+
+        <div class="card-block" *ngFor="let option of question.options; let j = index">
+          {{ option.text }}
+        </div>
+			</div>
+  </div>
+</div> -->
+
+<app-test-create-metadata [test]=(test.title)></app-test-create-metadata>
+<app-dynamic-test-create-form  [test]="test.questions" [formType]="'FLEXIBLE'"></app-dynamic-test-create-form>

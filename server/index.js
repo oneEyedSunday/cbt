@@ -16,7 +16,8 @@ const path = require('path');
 // or express file uploads
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-mongoose.Promise = Promise;
+// not needed with v5
+// mongoose.Promise = Promise;
 const methodOverride = require('method-override');
 // against request forgery
 // might nake testing hard,
@@ -31,9 +32,7 @@ let monDb
 let URI
 if(CONFIG.db.dialect === 'mongo'){
   URI = `mongodb://${CONFIG.db.host}/${CONFIG.db.name}`
-  mongoose.connect(URI, {
-    useMongoClient: true
-  })
+  mongoose.connect(URI)
 
   monDb = mongoose.connection
 } else {
@@ -41,8 +40,9 @@ if(CONFIG.db.dialect === 'mongo'){
   return
 }
 
-monDb.on('error', ()=>{
+monDb.on('error', (err)=>{
   console.error('MongoDb connection Error. Please make sure that', URI, 'is running.');
+  throw new Error(err)
 });
 
 monDb.once('open', ()=>{
@@ -106,7 +106,7 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   res.status(err.status || 500).send({
-    error: err
+    error: err.msg || err.message || err
   });
 });
 /**

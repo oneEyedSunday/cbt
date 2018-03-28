@@ -6,10 +6,7 @@ const Option = require('./models/Option');
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
 const mongoDB = 'mongodb://localhost:27017/cbt';
-const OPTIONS = {
-  useMongoClient: true
-}
-mongoose.connect(mongoDB, OPTIONS);
+mongoose.connect(mongoDB);
 const db = mongoose.connection;
 db.once('open', () => {
   console.log(`Connected to ${mongoDB}`)
@@ -77,7 +74,6 @@ const AllQuestions = [
   "Portugese League Sagres Top 5"
 ]
 const optionCreate =  async (text) => {
-  // return new Promise((resolve, reject) =>
     let option = new Option({text: text});
     // testing save
     // try 1
@@ -138,11 +134,12 @@ const createAllOptions = () => {
   })
 }
 
-const createTest = (title, arrayOfQuestions) => {
-  Test.create({
+const createTest = (title, arrayOfQuestions, subject) => {
+  return Test.create({
     title: title,
-    questions: arrayOfQuestions
-  }).then(test => test)
+    questions: arrayOfQuestions,
+    subject: subject
+  })
 }
 // strategy
 // in series, i.e one after the other
@@ -154,7 +151,7 @@ const createTest = (title, arrayOfQuestions) => {
 
 
 // have to create subject first
-let subject = new Subject({name: "Subject_1"});
+let subject = new Subject({name: "FootballTics"});
 
 subject.save()
 .then(savedSubject => {
@@ -164,8 +161,13 @@ subject.save()
   .then(options => {
     createAllQuestions(savedSubject, options)
     .then(questions => {
+      console.log('creating test')
       // create test
-      createTest("Test Uno", questions)
-    })
-  })
-})
+      createTest("Football 101", questions,savedSubject)
+      .then(test => {
+        console.log(test)
+        return
+      }).catch(err => { console.error(err) })
+    }).catch(err => console.error(err))
+  }).catch(err => {console.error(err)})
+}).catch(err => { console.error(err) })

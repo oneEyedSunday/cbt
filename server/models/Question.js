@@ -3,11 +3,6 @@ const Schema = mongoose.Schema;
 
 const questionSchema = new Schema({
   text: {type: String,required: true },
-  subject: {
-    type: Schema.ObjectId,
-    ref: 'Subject',
-    required: true
-  },
   // perhaps make the answer a type of optionSchema
   // to ensure theres an answer
   // check how to make answer an enum of options

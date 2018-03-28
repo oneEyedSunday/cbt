@@ -1,0 +1,13 @@
+<div class="card">
+	<div class="card-header">
+		<p class="lead">
+			Choose a subject to create a test for.
+		</p>
+	</div>
+	<div class="card-block">
+		<select [(ngModel)]="selectedSubj" class="form-control">
+			<option *ngFor="let s of subjects" value="{{s._id}}">{{s.name}}</option>
+		</select>
+		<button *ngIf="selectedSubj" (click)="subjectSelected(selectedSubj)" class="btn btn-primary mt-1">Proceed to create test</button>
+	</div>
+</div>

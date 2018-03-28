@@ -1,0 +1,45 @@
+<ng-template [ngIf]="utils.isLoaded(loading)">
+		<div class="card" *ngIf="!ready">
+			<div class="card-header">
+				How do you wish to create the test's questions and answers?
+			</div>
+			<div class="card-block">
+				<form class="form"  (onSubmit)="setWizard($event)">
+					<div class="form-group">
+						<div class="form-check form-check-inline">
+				      <label class="form-check-label">
+				        <input
+				          name="creationWizard"
+				          type="radio"
+				          class="form-check-input"
+				          value="RIGID"
+				          [(ngModel)]="creationWizard"
+				          required> RIGID
+				      </label>
+				    </div>
+						<div class="form-check form-check-inline">
+				      <label class="form-check-label">
+				        <input
+				          name="creationWizard"
+				          type="radio"
+				          class="form-check-input"
+				          value="FLEXIBLE"
+				          [(ngModel)]="creationWizard"
+				          required> FLEXIBLE
+				      </label>
+				    </div>
+						<div class="col">
+							<button (click)="setWizard($event)" class="btn btn-primary" [disabled]="!creationWizard">Proceed</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<ng-template [ngIf]="ready">
+
+			<app-test-create-metadata [formType]="creationWizard" (back)="toggle()" (rigidParamsSet)="setRigidFormsParams($event)"></app-test-create-metadata>
+			<app-dynamic-test-create-form *ngIf="typeofForm('RIGID') && rigidFormParamsReady()"  [options]="optionCount" [questions]="questionCount" [formType]="creationWizard" (submitTest)="submitTestHandler($event)" [submitProgress]="submitting"></app-dynamic-test-create-form>
+
+			<app-dynamic-test-create-form  *ngIf="typeofForm('FLEXIBLE')" [formType]="creationWizard"></app-dynamic-test-create-form>
+		</ng-template>
+	</ng-template>

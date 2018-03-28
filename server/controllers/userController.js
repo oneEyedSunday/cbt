@@ -18,45 +18,45 @@ exports.index = (req,res) => {
 };
 
 exports.create = async (req, res) => {
-  let err, existingUser, user;
+  let err, existingUser;
   [err, existingUser] = await to(User.findOne({email: req.body.email.normalize()}))
   if (err) return res.status(500).send({ error: err.message })
   if (existingUser) return res.status(403).send({ error: 'Credentials in use, this email address is taken' })
 
 
 
-  let candidate = {
-    firstname: 'Godson',
-    lastname: 'El Rey',
-    email: 'telmozarra@gmail.com',
-    password: 'zaza'
+  const candidate = {
+    firstname: req.body.firstname,
+    middlename: req.body.middlename,
+    lastname: req.body.lastname,
+    email: req.body.email,
+    roles: req.body.roles,
+    subjects: req.body.subjects
   }
 
-  // const cu = new User(candidate)
+  // const newUser = new User(candidate)
 
-  // cu.save().then(c => res.status(200).send({
-  //   user: c.toJSON(),
-  //   token: c.getToken()
+  // newUser.save().then(user => res.status(200).send({
+  //   user: user.toJSON(),
+  //   token: user.getToken()
   // })).catch(err => res.status(500).send({error: err.errmsg}))
-  [err, user] = await to(User.create({
-    firstname: 'Godson',
-    lastname: 'El Rey',
-    email: 'telmozarra@gmail.com',
-    password: 'zaza'
-  }))
-
-  if (err) return res.status(500).send({error: err})
-  console.log(user)
-  return res.status(200).send({
-    message : 'ok',
-    user: user
-    // user: user.toJSON(),
-    // token: user.getToken()
-  })
-
+  try{
+    const newUser = await create(candidate)
+    return res.status(200).json(newUser.getToken())
+  }catch (err) {
+    return res.status(409).send({
+      error: err
+    })
+  }
+  
+  
   // return res.send(candidate.password)
   // .then(c => res.status(200).send({c: c})).catch(err => res.status(500).send(err))
 };
+
+create = async(credentials) => {
+  return User.create(credentials)
+}
 
 exports.find = (req, res) => {
   // validate params
@@ -74,23 +74,7 @@ exports.find = (req, res) => {
 };
 
 exports.login = async function(req,res){
-  // User.findOne({
-  //   email: req.body.email
-  // }).then(user => {
-  //   if (!user) return res.status(403).send({message:"User not found, please sign up."});
-  //   bcrypt.compare(req.body.password, user.password, function(err,matched){
-  //       if (err) return res.status(500).send({message: err.message});
-  //       if(!matched) return res.status(403).send({mesage:"Incorrect password"});
-  //
-  //       // return token
-  //       return res.status(200).send({
-  //         user: user.toJSON(),
-  //         token: user.getToken()
-  //       });
-  //     });
-  // })
-  // .catch(err => res.status(500).send({message: err.message}))
-
+  
   let err, user;
   [err, user] = await to(User.findOne({ email: req.body.email.normalize() }))
   // if (err) TE(err.message)
@@ -105,10 +89,7 @@ exports.login = async function(req,res){
   // if (err) TE(err.message)
   if (err) return res.status(422).send({error: err.message})
   // return user;
-  return res.status(200).send({
-    token: user.getToken(),
-    user: user.toJSON()
-  })
+  return res.status(200).json(user.getToken())
 }
 }
 
