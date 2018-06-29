@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnInit  } from '@angular/core';
 import { ApiService } from './../../../app/services';
 import { ActivatedRoute , Router} from "@angular/router";
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
   // changeDetection: ChangeDetectionStrategy.OnPush,

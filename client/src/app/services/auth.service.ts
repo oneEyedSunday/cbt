@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
 import { Router } from '@angular/router';
 import { ApiService } from './api.service';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { JwtHelper } from '../core/helpers/jwt-helper';
-import { Observable } from 'rxjs/Rx';
 
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/map';
+import { tap, map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
@@ -64,11 +62,11 @@ private router: Router) {
 
   authenticate(email: string, password: string): Observable<string> {
     return this.api.login$(email,password)
-    .do((token: string) => {
+    .pipe(tap((token: string) => {
       localStorage.setItem('token', token);
       this.user.set(this._jwt.decodeToken());
       this._setSession(this._jwt.decodeToken());
-    });
+    }));
   }
 
   private _setSession(decoded: any){
@@ -92,11 +90,11 @@ private router: Router) {
 
   retrieveToken(): Observable<string> {
     return this.api.token$()
-    .map(res => <string>res)
-    .do((token: string) => {
+    .pipe(map(res => <string>res),
+      tap((token: string) => {
       this.clear();
       localStorage.setItem('token', token);
       this.user.set(this._jwt.decodeToken());
-    });
+    }));
   }
 }

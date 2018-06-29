@@ -1,6 +1,6 @@
 import { Component, OnDestroy, Input } from '@angular/core';
 import { TestModel } from './../../../app/core/models/test.model';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { ApiService } from './../../../app/services/api.service';
 import { Router } from '@angular/router';
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { fromEvent } from 'rxjs';
+import { debounceTime } from 'rxjs/operators'; 
 
 @Component({
   selector: 'app-root',
@@ -14,8 +15,8 @@ export class AppComponent implements OnInit {
   constructor(){}
 
   ngOnInit(){
-    Observable.fromEvent(window, 'resize')
-    .debounceTime(200)
+    fromEvent(window, 'resize')
+    .pipe(debounceTime(200))
     .subscribe((event)=> this._resizeFn(event));
 
     this._initWinHeight = window.innerHeight;

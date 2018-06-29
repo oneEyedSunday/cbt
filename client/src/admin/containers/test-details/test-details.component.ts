@@ -7,7 +7,7 @@ import {
 
 import { ApiService } from './../../../app/services';
 import { ActivatedRoute , Router } from "@angular/router";
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { SubjectModel } from './../../../app/core/models/subject.model';
 import { Title } from '@angular/platform-browser';
 import { UtilsService } from './../../../app/services/utils.service';

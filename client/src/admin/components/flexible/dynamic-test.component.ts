@@ -17,7 +17,7 @@ import {
   AbstractControl,
   Validators
  } from '@angular/forms'
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 
 @Component({

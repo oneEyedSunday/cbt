@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ApiService } from './../../services';
 import { UtilsService } from './../../services';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { TestModel } from './../../core/models/test.model';
 import { Title } from '@angular/platform-browser';
 

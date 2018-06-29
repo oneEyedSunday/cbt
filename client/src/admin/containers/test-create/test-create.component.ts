@@ -2,10 +2,9 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { SubjectModel } from './../../../app/core/models/subject.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, Observable } from 'rxjs';
 import { ApiService } from './../../../app/services';
 import { UtilsService } from './../../../app/services';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-test-create',
